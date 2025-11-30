@@ -1,0 +1,130 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import { robes, collections } from "../data/robes";
+---
+
+<BaseLayout
+  title="Nos Robes"
+  description="Découvrez notre collection de robes de mariée en location - Princesse, Sirène, Oriental"
+>
+  <Header />
+
+  <main class="pt-24 md:pt-20">
+    <section
+      class="py-24 md:py-16 text-center bg-gradient-to-br from-white to-gray-light"
+    >
+      <div class="container">
+        <h1 class="mb-4">Nos Robes</h1>
+        <p class="text-xl text-gray-dark max-w-[600px] mx-auto">
+          Une collection soigneusement sélectionnée pour votre jour le plus
+          spécial
+        </p>
+      </div>
+    </section>
+
+    <section class="section bg-white border-b border-black/10">
+      <div class="container">
+        <div class="flex justify-center gap-4 flex-wrap">
+          {
+            collections.map((collection) => (
+              <button
+                class="filter-btn px-6 py-3 font-sans text-sm md:text-base font-medium uppercase tracking-wider bg-transparent border-2 border-black text-black cursor-pointer transition-all duration-300 hover:bg-black hover:text-white"
+                data-collection={
+                  collection === "Toutes" ? "all" : collection.toLowerCase()
+                }
+              >
+                {collection}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-gray-light">
+      <div class="container">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {
+            robes.map((robe) => (
+              <div
+                class="robe-card bg-white overflow-hidden transition-all duration-300 border border-transparent flex flex-col hover:border-gold hover:-translate-y-1 hover:shadow-lg"
+                data-collection={robe.collection.toLowerCase()}
+              >
+                <div class="overflow-hidden">
+                  <img
+                    src={
+                      robe.images?.[0] ||
+                      `https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=1200&q=80`
+                    }
+                    alt={robe.name}
+                    class="w-full h-[400px] object-cover"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-8 flex flex-col gap-2 flex-grow">
+                  <span class="text-xs uppercase tracking-[0.2em] text-gold font-semibold">
+                    {robe.collection}
+                  </span>
+                  <h3 class="text-2xl my-2">{robe.name}</h3>
+                  <p class="text-gray-dark leading-relaxed mb-4 flex-grow">
+                    {robe.description}
+                  </p>
+                  <a
+                    href={`/robe/${robe.id}`}
+                    class="btn btn-gold btn-small self-start"
+                  >
+                    Voir les détails
+                  </a>
+                </div>
+              </div>
+            ))
+          }
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  // Filter dresses by collection
+  document.addEventListener("DOMContentLoaded", () => {
+    const filterButtons = document.querySelectorAll(".filter-btn");
+    const robeCards = document.querySelectorAll(".robe-card");
+
+    filterButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        // Activate the clicked button
+        filterButtons.forEach((btn) => {
+          btn.classList.remove("active", "bg-black", "text-white");
+          btn.classList.add("bg-transparent", "text-black");
+        });
+        button.classList.add("active", "bg-black", "text-white");
+        button.classList.remove("bg-transparent", "text-black");
+
+        const filter = button.getAttribute("data-collection");
+
+        robeCards.forEach((card) => {
+          const htmlCard = card as HTMLElement;
+          if (
+            filter === "all" ||
+            card.getAttribute("data-collection") === filter
+          ) {
+            htmlCard.style.display = "flex";
+          } else {
+            htmlCard.style.display = "none";
+          }
+        });
+      });
+    });
+
+    // Activate "All" by default
+    if (filterButtons[0]) {
+      filterButtons[0].classList.add("active", "bg-black", "text-white");
+      filterButtons[0].classList.remove("bg-transparent", "text-black");
+    }
+  });
+</script>

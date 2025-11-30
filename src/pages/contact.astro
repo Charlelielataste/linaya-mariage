@@ -1,0 +1,185 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import IllustrationImage from "../components/IllustrationImage.astro";
+---
+
+<BaseLayout
+  title="Contact"
+  description="Contactez Linaya Mariage pour toute question ou pour prendre rendez-vous"
+>
+  <Header />
+
+      <main class="pt-24 md:pt-20">
+    <section
+      class="py-24 md:py-16 text-center bg-gradient-to-br from-white to-gray-light"
+    >
+      <div class="container">
+        <h1 class="mb-4">Contact</h1>
+        <p class="text-xl text-gray-dark max-w-[600px] mx-auto">
+          Nous sommes là pour répondre à toutes vos questions
+        </p>
+      </div>
+    </section>
+
+    <section class="section bg-white">
+      <div class="container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div class="contact-info">
+            <h2 class="mb-8">Prenez contact avec nous</h2>
+            <p class="text-lg leading-relaxed mb-16 text-gray-dark">
+              Vous avez une question sur nos robes, nos collections ou souhaitez
+              simplement en savoir plus ? N'hésitez pas à nous contacter. Notre
+              équipe se fera un plaisir de vous répondre.
+            </p>
+
+            <div class="flex flex-col gap-8 mb-8">
+              <div>
+                <h3 class="text-lg mb-2 text-gold font-serif">Email</h3>
+                <a
+                  href="mailto:contact@linayamariage.com"
+                  class="text-black hover:text-gold transition-colors duration-300"
+                  >contact@linayamariage.com</a
+                >
+              </div>
+
+              <div>
+                <h3 class="text-lg mb-2 text-gold font-serif">Téléphone</h3>
+                <a
+                  href="tel:+33123456789"
+                  class="text-black hover:text-gold transition-colors duration-300"
+                  >+33 1 23 45 67 89</a
+                >
+              </div>
+
+              <div>
+                <h3 class="text-lg mb-2 text-gold font-serif">Adresse</h3>
+                <p class="text-gray-dark leading-relaxed">
+                  123 Rue de l'Élégance<br />75001 Paris, France
+                </p>
+              </div>
+
+              <div>
+                <h3 class="text-lg mb-2 text-gold font-serif">Horaires</h3>
+                <p class="text-gray-dark leading-relaxed">
+                  Lundi - Vendredi : 10h - 19h<br />
+                  Samedi : 10h - 18h<br />
+                  Dimanche : Sur rendez-vous
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-gray-light p-8 rounded">
+            <form class="flex flex-col gap-8" id="contactForm">
+              <div class="flex flex-col gap-2">
+                <label
+                  for="name"
+                  class="text-sm font-medium uppercase tracking-wider text-black"
+                  >Nom complet *</label
+                >
+                <input
+                  type="text"
+                  id="name"
+                  name="name"
+                  required
+                  class="px-4 py-3.5 font-sans text-base border border-black/20 bg-white text-black transition-all duration-300 rounded focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label
+                  for="email"
+                  class="text-sm font-medium uppercase tracking-wider text-black"
+                  >Email *</label
+                >
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  required
+                  class="px-4 py-3.5 font-sans text-base border border-black/20 bg-white text-black transition-all duration-300 rounded focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label
+                  for="phone"
+                  class="text-sm font-medium uppercase tracking-wider text-black"
+                  >Téléphone</label
+                >
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  class="px-4 py-3.5 font-sans text-base border border-black/20 bg-white text-black transition-all duration-300 rounded focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10"
+                />
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label
+                  for="subject"
+                  class="text-sm font-medium uppercase tracking-wider text-black"
+                  >Sujet *</label
+                >
+                <select
+                  id="subject"
+                  name="subject"
+                  required
+                  class="px-4 py-3.5 font-sans text-base border border-black/20 bg-white text-black transition-all duration-300 rounded focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10"
+                >
+                  <option value="">Sélectionnez un sujet</option>
+                  <option value="rdv">Prise de rendez-vous</option>
+                  <option value="info">Demande d'information</option>
+                  <option value="collection">Question sur une collection</option
+                  >
+                  <option value="autre">Autre</option>
+                </select>
+              </div>
+
+              <div class="flex flex-col gap-2">
+                <label
+                  for="message"
+                  class="text-sm font-medium uppercase tracking-wider text-black"
+                  >Message *</label
+                >
+                <textarea
+                  id="message"
+                  name="message"
+                  rows="6"
+                  required
+                  class="px-4 py-3.5 font-sans text-base border border-black/20 bg-white text-black transition-all duration-300 rounded resize-y min-h-[120px] focus:outline-none focus:border-gold focus:ring-2 focus:ring-gold/10"
+                ></textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-large w-full">
+                Envoyer le message
+              </button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("contactForm") as HTMLFormElement;
+
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      // Add form submission logic here
+      // For example, with a service like Formspree, EmailJS, or an API
+
+      alert(
+        "Merci pour votre message ! Nous vous répondrons dans les plus brefs délais."
+      );
+      form.reset();
+    });
+  });
+</script>

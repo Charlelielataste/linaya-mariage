@@ -1,0 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply scroll-smooth;
+  }
+  
+  body {
+    @apply font-sans text-black bg-white antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif font-semibold leading-tight text-black;
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl lg:text-5xl;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl;
+  }
+  
+  a {
+    @apply transition-all duration-300;
+  }
+  
+  button {
+    @apply rounded-lg;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-block px-6 py-4 font-sans text-base font-medium uppercase tracking-wider border-2 border-black bg-transparent text-black text-center transition-all duration-300 rounded-lg;
+  }
+  
+  .btn:hover {
+    @apply bg-black text-white;
+  }
+  
+  .btn-primary {
+    @apply bg-black text-white border-black;
+  }
+  
+  .btn-primary:hover {
+    @apply bg-gold border-gold text-black;
+  }
+  
+  .btn-gold {
+    @apply bg-gold text-black border-gold;
+  }
+  
+  .btn-gold:hover {
+    @apply bg-gold-dark border-gold-dark;
+  }
+  
+  .btn-large {
+    @apply px-12 py-5 text-lg;
+  }
+  
+  .btn-small {
+    @apply px-6 py-3 text-sm;
+  }
+  
+  .container {
+    @apply max-w-7xl mx-auto px-4 md:px-8;
+  }
+  
+  .section {
+    @apply py-16 md:py-24;
+  }
+}

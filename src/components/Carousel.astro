@@ -1,0 +1,176 @@
+---
+interface Props {
+  images: Array<{
+    src: string;
+    alt: string;
+  }>;
+  autoplay?: boolean;
+  interval?: number;
+}
+
+const { images, autoplay = true, interval = 5000 } = Astro.props;
+---
+
+<div class="carousel-container relative w-full h-screen overflow-hidden">
+  <div class="carousel-wrapper relative w-full h-full">
+    {
+      images.map((image, index) => (
+        <div
+          class={`carousel-slide absolute inset-0 w-full h-full transition-opacity duration-1000 ${
+            index === 0 ? "opacity-100" : "opacity-0"
+          }`}
+          data-slide={index}
+        >
+          <img
+            src={image.src}
+            alt={image.alt}
+            class="w-full h-full object-cover"
+            loading={index === 0 ? "eager" : "lazy"}
+          />
+          <div class="absolute inset-0 bg-black/30" />
+        </div>
+      ))
+    }
+  </div>
+
+  <div class="absolute inset-0 flex items-center justify-center z-10">
+    <div class="text-center text-white px-4 max-w-4xl">
+      <slot />
+    </div>
+  </div>
+
+  <button
+    class="carousel-prev hidden md:flex absolute left-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm items-center justify-center"
+    aria-label="Previous slide"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M15 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+
+  <button
+    class="carousel-next hidden md:flex absolute right-4 top-1/2 -translate-y-1/2 z-20 bg-white/20 hover:bg-white/40 text-white p-3 rounded-full transition-all duration-300 backdrop-blur-sm items-center justify-center"
+    aria-label="Next slide"
+  >
+    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"></path>
+    </svg>
+  </button>
+
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+    {
+      images.map((_, index) => (
+        <button
+          class={`carousel-dot w-2 h-2 rounded-full transition-all duration-300 ${
+            index === 0 ? "bg-white w-8" : "bg-white/50"
+          }`}
+          data-dot={index}
+          aria-label={`Go to slide ${index + 1}`}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<script>
+  function initCarousel() {
+    const container = document.querySelector(".carousel-container");
+    if (!container) return;
+
+    const slides = container.querySelectorAll(".carousel-slide");
+    const dots = container.querySelectorAll(".carousel-dot");
+    const prevBtn = container.querySelector(".carousel-prev");
+    const nextBtn = container.querySelector(".carousel-next");
+
+    let currentSlide = 0;
+    let autoplayInterval: ReturnType<typeof setInterval> | null = null;
+    const autoplayEnabled = { value: true };
+    const intervalTime = 5000;
+
+    function showSlide(index: number) {
+      slides.forEach((slide, i) => {
+        if (i === index) {
+          slide.classList.remove("opacity-0");
+          slide.classList.add("opacity-100");
+        } else {
+          slide.classList.remove("opacity-100");
+          slide.classList.add("opacity-0");
+        }
+      });
+
+      dots.forEach((dot, i) => {
+        if (i === index) {
+          dot.classList.add("bg-white", "w-8");
+          dot.classList.remove("bg-white/50");
+        } else {
+          dot.classList.remove("bg-white", "w-8");
+          dot.classList.add("bg-white/50");
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentSlide = (currentSlide + 1) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function prevSlide() {
+      currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+      showSlide(currentSlide);
+    }
+
+    function startAutoplay() {
+      if (!autoplayEnabled.value) return;
+      autoplayInterval = setInterval(nextSlide, intervalTime);
+    }
+
+    function stopAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    }
+
+    nextBtn?.addEventListener("click", () => {
+      nextSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    prevBtn?.addEventListener("click", () => {
+      prevSlide();
+      stopAutoplay();
+      startAutoplay();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        currentSlide = index;
+        showSlide(currentSlide);
+        stopAutoplay();
+        startAutoplay();
+      });
+    });
+
+    container.addEventListener("mouseenter", stopAutoplay);
+    container.addEventListener("mouseleave", () => {
+      if (autoplayEnabled.value) {
+        startAutoplay();
+      }
+    });
+
+    startAutoplay();
+  }
+
+  if (typeof window !== "undefined") {
+    document.addEventListener("DOMContentLoaded", initCarousel);
+  }
+</script>

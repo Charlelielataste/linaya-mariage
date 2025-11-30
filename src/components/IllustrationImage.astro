@@ -1,0 +1,49 @@
+---
+interface Props {
+  name:
+    | "dress-princess"
+    | "dress-sirene"
+    | "dress-trapeze"
+    | "wedding-rings"
+    | "bouquet"
+    | "bride-silhouette";
+  class?: string;
+  alt?: string;
+}
+
+const { name, class: className = "", alt = "" } = Astro.props;
+
+const imageMap: Record<string, string> = {
+  "dress-princess":
+    "https://www.marieeparisienne.com/wp-content/uploads/2020/09/robe-de-mariee-princesse.jpg",
+  "dress-sirene":
+    "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=800&q=80",
+  "dress-trapeze":
+    "https://www.aupaysdumariage.com/public/img/big/E53B5F708FD24F6F85291FD9F107CF71png_65b8b14129fed5.65279687.png",
+  "wedding-rings":
+    "https://cdn.britannica.com/15/214515-050-2AB72256/jewelrs-tweezers-holding-a-diamond.jpg",
+  bouquet:
+    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+  "bride-silhouette":
+    "https://images.unsplash.com/photo-1519741497674-611481863552?w=800&q=80",
+};
+
+const altMap: Record<string, string> = {
+  "dress-princess": "Princess wedding dress",
+  "dress-sirene": "Mermaid wedding dress",
+  "dress-trapeze": "A-line wedding dress",
+  "wedding-rings": "Wedding rings",
+  bouquet: "Wedding bouquet",
+  "bride-silhouette": "Bride silhouette",
+};
+
+const imageUrl = imageMap[name] || "";
+const imageAlt = alt || altMap[name] || "";
+---
+
+<img
+  src={imageUrl}
+  alt={imageAlt}
+  class={`object-cover ${className}`}
+  loading="lazy"
+/>

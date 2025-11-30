@@ -1,0 +1,153 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "../components/Header.astro";
+import Footer from "../components/Footer.astro";
+import IllustrationImage from "../components/IllustrationImage.astro";
+import Carousel from "../components/Carousel.astro";
+
+const carouselImages = [
+  {
+    src: "https://cdn0.mariages.net/vendor/6108/3_2/960/jpg/naelys-paysage_3_16108-176053281296266.jpeg",
+    alt: "Robe de mariée élégante",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=1920&q=80",
+    alt: "Robe de mariée sirène",
+  },
+  {
+    src: "https://cdn0.mariages.net/vendor/2653/3_2/960/jpg/sans-titre-1_3_32653-163308689064391.jpeg",
+    alt: "Robe de mariée orientale",
+  },
+  {
+    src: "https://images.unsplash.com/photo-1519741497674-611481863552?w=1920&q=80",
+    alt: "Robe de mariée romantique",
+  },
+];
+---
+
+<BaseLayout
+  title="Accueil"
+  description="Linaya Mariage - Location de robes de mariée élégantes et raffinées pour votre jour le plus spécial"
+>
+  <Header />
+
+  <main>
+    <Carousel images={carouselImages}>
+      <div>
+        <h1
+          class="text-5xl md:text-6xl lg:text-7xl font-serif mb-6 leading-tight"
+        >
+          <span class="text-rose-gold">Trouvez la robe</span><br />
+          <span class="text-gold">qui vous ressemble</span>
+        </h1>
+        <p class="text-xl md:text-2xl mb-8 max-w-2xl mx-auto leading-relaxed">
+          Location de robes de mariée élégantes et raffinées pour faire de votre
+          jour le plus spécial un moment inoubliable.
+        </p>
+        <div class="flex gap-4 justify-center lg:flex-row flex-col">
+          <a
+            href="/robes"
+            class="btn btn-primary sm:btn-large btn-small rounded-lg"
+            >Découvrir nos robes</a
+          >
+          <a
+            href="https://calendly.com/linaya-mariage"
+            target="_blank"
+            rel="noopener"
+            class="btn btn-gold sm:btn-large btn-small rounded-lg"
+          >
+            Prendre rendez-vous
+          </a>
+        </div>
+      </div>
+    </Carousel>
+
+    <section class="section bg-gray-light">
+      <div class="container">
+        <div class="text-center mb-16">
+          <h2>Nos Collections</h2>
+          <p class="text-lg text-gray-dark mt-4">
+            Des silhouettes pour toutes les envies
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-white p-8 text-center transition-all duration-300 border border-transparent hover:border-gold hover:-translate-y-1"
+          >
+            <div
+              class="mb-8 flex justify-center items-center min-h-[300px] overflow-hidden rounded-lg"
+            >
+              <IllustrationImage
+                name="dress-princess"
+                class="w-full h-[300px] object-cover"
+              />
+            </div>
+            <h3 class="text-2xl mb-4 text-black">Princesse</h3>
+            <p class="text-gray-dark leading-relaxed">
+              Robe ample et romantique pour un style de conte de fées
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-8 text-center transition-all duration-300 border border-transparent hover:border-gold hover:-translate-y-1"
+          >
+            <div
+              class="mb-8 flex justify-center items-center min-h-[300px] overflow-hidden rounded-lg"
+            >
+              <IllustrationImage
+                name="dress-sirene"
+                class="w-full h-[300px] object-cover"
+              />
+            </div>
+            <h3 class="text-2xl mb-4 text-black">Sirène</h3>
+            <p class="text-gray-dark leading-relaxed">
+              Silhouette près du corps, élégante et sophistiquée
+            </p>
+          </div>
+
+          <div
+            class="bg-white p-8 text-center transition-all duration-300 border border-transparent hover:border-gold hover:-translate-y-1"
+          >
+            <div
+              class="mb-8 flex justify-center items-center min-h-[300px] overflow-hidden rounded-lg"
+            >
+              <IllustrationImage
+                name="dress-trapeze"
+                class="w-full h-[300px] object-cover"
+              />
+            </div>
+            <h3 class="text-2xl mb-4 text-black">Oriental</h3>
+            <p class="text-gray-dark leading-relaxed">
+              Style moderne et fluide pour une mariée contemporaine
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section bg-white">
+      <div class="container">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+          <div class="flex justify-center items-center">
+            <IllustrationImage
+              name="bouquet"
+              class="w-full max-w-[400px] h-[500px] rounded-lg object-cover opacity-90"
+            />
+          </div>
+          <div>
+            <h2 class="mb-8 leading-tight">Une expérience<br />sur mesure</h2>
+            <p class="text-lg leading-relaxed mb-8 text-gray-dark">
+              Chez Linaya Mariage, nous croyons que chaque mariée mérite de se
+              sentir exceptionnelle. Notre collection de robes de mariée en
+              location vous permet de vivre votre rêve sans compromis.
+            </p>
+            <a href="/a-propos" class="btn btn-gold">En savoir plus</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</BaseLayout>
