@@ -1,10 +1,15 @@
 ---
+import "../styles/global.css";
+
 interface Props {
   title: string;
   description?: string;
 }
 
-const { title, description = "Linaya Mariage - Location de robes de mariée élégantes et raffinées" } = Astro.props;
+const {
+  title,
+  description = "Linaya Mariage - Location de robes de mariée élégantes et raffinées",
+} = Astro.props;
 ---
 
 <!doctype html>
@@ -15,10 +20,8 @@ const { title, description = "Linaya Mariage - Location de robes de mariée él�
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="description" content={description} />
     <title>{title} | Linaya Mariage</title>
-    <link rel="stylesheet" href="/src/styles/global.css" />
   </head>
   <body>
     <slot />
   </body>
 </html>
-
